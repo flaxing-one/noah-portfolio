@@ -520,3 +520,275 @@ function isInViewport(element) {
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
 }
+
+/* ==========================================================================
+   PREMIUM FEATURES
+   ========================================================================== */
+
+/* Scroll Progress Bar */
+function initScrollProgress() {
+    const progressBar = document.querySelector('.scroll-progress-bar');
+    if (!progressBar) return;
+
+    window.addEventListener('scroll', function () {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+    });
+}
+
+/* Theme Toggle - Dark/Light Mode */
+function initThemeToggle() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (!themeToggle) return;
+
+    // Check for saved theme preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'light' || (!savedTheme && !systemPrefersDark)) {
+        document.body.classList.add('light-mode');
+    }
+
+    themeToggle.addEventListener('click', function () {
+        document.body.classList.toggle('light-mode');
+
+        // Save preference
+        const isLightMode = document.body.classList.contains('light-mode');
+        localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+
+        // Add rotation animation
+        this.style.transform = 'scale(1.1) rotate(360deg)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 500);
+    });
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        if (!localStorage.getItem('theme')) {
+            document.body.classList.toggle('light-mode', !e.matches);
+        }
+    });
+}
+
+/* Particles Background */
+function initParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+
+    // Reduce particles on mobile for performance
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? 15 : 30;
+
+    for (let i = 0; i < particleCount; i++) {
+        createParticle(container);
+    }
+}
+
+function createParticle(container) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+
+    // Random properties
+    const size = Math.random() * 4 + 2;
+    const left = Math.random() * 100;
+    const delay = Math.random() * 15;
+    const duration = Math.random() * 10 + 15;
+    const opacity = Math.random() * 0.3 + 0.1;
+
+    particle.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${left}%;
+        animation-delay: -${delay}s;
+        animation-duration: ${duration}s;
+        opacity: ${opacity};
+    `;
+
+    container.appendChild(particle);
+}
+
+/* Social Share Sidebar */
+function initSocialShare() {
+    // Create social share sidebar if it doesn't exist
+    if (document.querySelector('.social-share-sidebar')) return;
+
+    const sidebar = document.createElement('div');
+    sidebar.className = 'social-share-sidebar';
+    sidebar.innerHTML = `
+        <a href="https://linkedin.com/in/noahscan" target="_blank" rel="noopener noreferrer" class="social-share-btn linkedin" aria-label="LinkedIn" title="Voir mon LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://twitter.com/intent/tweet?text=Découvrez le portfolio de Noah Scaillierez, alternant marketing digital !&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="social-share-btn twitter" aria-label="Partager sur Twitter" title="Partager sur Twitter">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://wa.me/?text=Découvrez le portfolio de Noah Scaillierez: ${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="social-share-btn whatsapp" aria-label="Partager sur WhatsApp" title="Partager sur WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="mailto:?subject=Portfolio de Noah Scaillierez&body=Découvrez ce portfolio : ${encodeURIComponent(window.location.href)}" class="social-share-btn email" aria-label="Partager par email" title="Partager par email">
+            <i class="fas fa-envelope"></i>
+        </a>
+    `;
+
+    document.body.appendChild(sidebar);
+
+    // Add animation on scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', function () {
+        const currentScroll = window.scrollY;
+        const isScrollingDown = currentScroll > lastScroll;
+
+        if (currentScroll > 300) {
+            sidebar.style.opacity = isScrollingDown ? '0.5' : '1';
+        } else {
+            sidebar.style.opacity = '1';
+        }
+
+        lastScroll = currentScroll;
+    });
+}
+
+/* Enhanced Hover Effects for Cards */
+function init3DCardEffects() {
+    const cards = document.querySelectorAll('.project-card, .skill-category');
+
+    cards.forEach(card => {
+        card.addEventListener('mousemove', function (e) {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+        });
+
+        card.addEventListener('mouseleave', function () {
+            card.style.transform = '';
+        });
+    });
+}
+
+/* Easter Egg - Konami Code */
+function initEasterEgg() {
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === konamiCode[konamiIndex]) {
+            konamiIndex++;
+
+            if (konamiIndex === konamiCode.length) {
+                // Easter egg activated!
+                document.body.style.animation = 'rainbow 2s ease';
+
+                // Create confetti effect
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => createConfetti(), i * 30);
+                }
+
+                konamiIndex = 0;
+            }
+        } else {
+            konamiIndex = 0;
+        }
+    });
+}
+
+function createConfetti() {
+    const confetti = document.createElement('div');
+    const colors = ['#6366f1', '#8b5cf6', '#a855f7', '#10b981', '#f59e0b'];
+
+    confetti.style.cssText = `
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        left: ${Math.random() * 100}%;
+        top: -20px;
+        z-index: 10002;
+        border-radius: 2px;
+        pointer-events: none;
+        animation: confettiFall 3s forwards;
+        transform: rotate(${Math.random() * 360}deg);
+    `;
+
+    document.body.appendChild(confetti);
+
+    setTimeout(() => confetti.remove(), 3000);
+}
+
+// Add confetti animation
+const confettiStyle = document.createElement('style');
+confettiStyle.textContent = `
+    @keyframes confettiFall {
+        to {
+            transform: translateY(100vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+    @keyframes rainbow {
+        0%, 100% { filter: hue-rotate(0deg); }
+        50% { filter: hue-rotate(360deg); }
+    }
+`;
+document.head.appendChild(confettiStyle);
+
+/* Keyboard Navigation Enhancement */
+function initKeyboardNav() {
+    document.addEventListener('keydown', function (e) {
+        // Press 'h' to go home
+        if (e.key === 'h' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+            document.querySelector('#home')?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Press 'c' to go to contact
+        if (e.key === 'c' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+            document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Press 't' to toggle theme
+        if (e.key === 't' && !e.ctrlKey && !e.metaKey && !isInputFocused()) {
+            document.querySelector('.theme-toggle')?.click();
+        }
+    });
+}
+
+function isInputFocused() {
+    const activeElement = document.activeElement;
+    return activeElement.tagName === 'INPUT' ||
+        activeElement.tagName === 'TEXTAREA' ||
+        activeElement.isContentEditable;
+}
+
+/* Print CV Function */
+function initPrintCV() {
+    // Add keyboard shortcut for printing
+    document.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+            // The browser's native print will be triggered
+            // Our print styles will handle the layout
+        }
+    });
+}
+
+/* Initialize all premium features */
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize after a short delay to ensure DOM is ready
+    setTimeout(function () {
+        initScrollProgress();
+        initThemeToggle();
+        initParticles();
+        initSocialShare();
+        init3DCardEffects();
+        initEasterEgg();
+        initKeyboardNav();
+        initPrintCV();
+    }, 100);
+});
