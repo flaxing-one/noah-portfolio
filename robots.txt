@@ -1,0 +1,23 @@
+# Sitemap XML pour Noah Scaillierez - Alternant Marketing Digital
+# https://noah-scaillierez.fr/sitemap.xml
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://noah-scaillierez.fr/sitemap.xml
+
+# Crawl delay (optional, for politeness)
+Crawl-delay: 1
+
+# Disallow admin or private paths (none currently)
+# Disallow: /admin/
+
+# Important pages for crawling
+# Homepage with all sections
+# https://noah-scaillierez.fr/
+# https://noah-scaillierez.fr/#about
+# https://noah-scaillierez.fr/#experience
+# https://noah-scaillierez.fr/#skills
+# https://noah-scaillierez.fr/#projects
+# https://noah-scaillierez.fr/#contact

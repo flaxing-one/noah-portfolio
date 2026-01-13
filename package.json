@@ -1,0 +1,25 @@
+{
+    "name": "noah-portfolio",
+    "version": "1.0.0",
+    "description": "Portfolio Noah Scaillierez - Alternant Marketing Digital Lille, Valenciennes, Douai",
+    "main": "index.html",
+    "scripts": {
+        "start": "python3 -m http.server 3000",
+        "dev": "python3 -m http.server 3000"
+    },
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "keywords": [
+        "portfolio",
+        "marketing digital",
+        "alternance",
+        "lille",
+        "valenciennes",
+        "douai",
+        "noah scaillierez"
+    ],
+    "author": "Noah Scaillierez",
+    "license": "MIT"
+}
