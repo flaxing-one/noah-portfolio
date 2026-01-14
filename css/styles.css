@@ -13,7 +13,7 @@
 
     --text-primary: #ffffff;
     --text-secondary: rgba(255, 255, 255, 0.7);
-    --text-muted: rgba(255, 255, 255, 0.5);
+    --text-muted: rgba(255, 255, 255, 0.6);
 
     --accent-primary: #6366f1;
     --accent-secondary: #8b5cf6;
@@ -2851,4 +2851,6 @@ body.light-mode .glass-effect {
     .section {
         page-break-inside: avoid;
     }
-}/* Cache bust 1768315839 */
+}
+
+/* Cache bust 1768315839 */

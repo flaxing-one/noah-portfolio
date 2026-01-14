@@ -783,7 +783,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize after a short delay to ensure DOM is ready
     setTimeout(function () {
         initScrollProgress();
-        initThemeToggle();
+        // initThemeToggle(); // Disabled - dark mode only for clean pro look
         initParticles();
         initSocialShare();
         init3DCardEffects();
