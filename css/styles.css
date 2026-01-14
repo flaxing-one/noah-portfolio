@@ -1737,28 +1737,34 @@ ul {
     color: var(--accent-primary);
 }
 
-.tools-grid {
+.tools .tools-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 15px;
 }
 
-.tool-card {
+.tools .tool-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
     cursor: pointer;
     transition: all var(--transition-fast);
+    background: none;
+    border: none;
+    width: auto;
+    height: auto;
 }
 
-.tool-card:hover {
+.tools .tool-card:hover {
     transform: translateY(-5px) scale(1.05);
 }
 
-.tool-icon {
+.tools .tool-icon {
     width: 50px;
     height: 50px;
+    min-width: 50px;
+    min-height: 50px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -1770,12 +1776,12 @@ ul {
     transition: all var(--transition-fast);
 }
 
-.tool-card:hover .tool-icon {
+.tools .tool-card:hover .tool-icon {
     box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
     transform: scale(1.1);
 }
 
-.tool-name {
+.tools .tool-name {
     font-size: 0.7rem;
     color: var(--text-muted);
     text-align: center;
@@ -1783,7 +1789,7 @@ ul {
     transition: color var(--transition-fast);
 }
 
-.tool-card:hover .tool-name {
+.tools .tool-card:hover .tool-name {
     color: var(--text-primary);
 }
 
@@ -1792,7 +1798,7 @@ ul {
         grid-template-columns: 1fr;
     }
 
-    .tools-grid {
+    .tools .tools-grid {
         grid-template-columns: repeat(4, 1fr);
     }
 }
