@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Initialize all modules
     initLoader();
-    initCustomCursor();
+    // initCustomCursor(); // Disabled for performance
     initNavigation();
     initMobileMenu();
     initScrollEffects();
@@ -30,19 +30,19 @@ function initLoader() {
     // Add loading class to body
     document.body.classList.add('loading');
 
-    // Hide loader after animation
+    // Hide loader after animation - reduced for faster experience
     window.addEventListener('load', function () {
         setTimeout(function () {
             loader.classList.add('hidden');
             document.body.classList.remove('loading');
-        }, 2200);
+        }, 600);
     });
 
-    // Fallback: hide loader after max 3 seconds
+    // Fallback: hide loader after max 1.2 seconds
     setTimeout(function () {
         loader.classList.add('hidden');
         document.body.classList.remove('loading');
-    }, 3000);
+    }, 1200);
 }
 
 /* ==========================================================================
@@ -792,9 +792,9 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () {
         initScrollProgress();
         // initThemeToggle(); // Disabled - dark mode only for clean pro look
-        initParticles();
+        // initParticles(); // Disabled for performance
         initSocialShare();
-        init3DCardEffects();
+        // init3DCardEffects(); // Disabled for performance
         initEasterEgg();
         initKeyboardNav();
         initPrintCV();
