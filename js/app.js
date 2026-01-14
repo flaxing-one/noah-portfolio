@@ -194,6 +194,14 @@ function initMobileMenu() {
         this.classList.toggle('active');
         mobileMenu.classList.toggle('active');
     });
+
+    // Close mobile menu on resize to desktop
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+            navToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+        }
+    });
 }
 
 /* ==========================================================================
@@ -323,8 +331,8 @@ function initSkillBars() {
     if (skillBars.length === 0) return;
 
     const observerOptions = {
-        threshold: 0.3,
-        rootMargin: '0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     };
 
     const observer = new IntersectionObserver(function (entries) {
